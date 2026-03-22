@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tricars — Quality Pre-Owned Vehicles · Gaithersburg, MD</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0B1D35;
+    --blue:   #1A3A6B;
+    --mid:    #2563EB;
+    --accent: #3B82F6;
+    --steel:  #64748B;
+    --silver: #94A3B8;
+    --ice:    #E2E8F0;
+    --fog:    #F1F5F9;
+    --white:  #FFFFFF;
+    --ink:    #0F172A;
+    --green:  #10B981;
+    --amber:  #F59E0B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── TOPBAR ──────────────────────────────────────── */
+  .topbar {
+    background: var(--navy);
+    border-bottom: 1px solid rgba(59,130,246,0.25);
+    padding: 8px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--silver);
+  }
+  .topbar a { color: var(--silver); text-decoration: none; }
+  .topbar a:hover { color: var(--white); }
+  .topbar-left { display: flex; gap: 24px; align-items: center; }
+  .topbar-right { display: flex; gap: 20px; align-items: center; }
+  .topbar-phone { color: var(--white) !important; font-weight: 600; font-size: 13px; }
+  .topbar-sep { color: rgba(255,255,255,0.15); }
+
+  /* ── NAV ─────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,23,42,0.98);
+    backdrop-filter: blur(16px);
+    padding: 0 40px;
+    height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(59,130,246,0.15);
+  }
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 26px; letter-spacing: 4px;
+    color: var(--white); text-transform: uppercase; text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a {
+    color: var(--silver); text-decoration: none;
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--mid); color: var(--white) !important;
+    padding: 10px 22px; border-radius: 4px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    min-height: 92vh;
+    background:
+      linear-gradient(150deg, rgba(11,29,53,0.96) 0%, rgba(26,58,107,0.88) 50%, rgba(37,99,235,0.55) 100%),
+      url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1800&q=80') center 40%/cover no-repeat;
+    display: flex; align-items: center;
+    padding: 80px 40px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(37,99,235,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 100px;
+    background: linear-gradient(to top, var(--white) 0%, transparent 100%);
+  }
+  .hero-inner {
+    max-width: 1240px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  /* left column */
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.35);
+    color: #93C5FD; font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 7px 14px; border-radius: 100px; margin-bottom: 22px;
+  }
+  .hero-badge-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: clamp(52px, 7vw, 82px);
+    line-height: 0.92; color: var(--white);
+    text-transform: uppercase; letter-spacing: -1px;
+    margin-bottom: 22px;
+  }
+  h1 .cr { color: var(--accent); display: block; }
+
+  .hero-sub {
+    font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.72);
+    line-height: 1.7; max-width: 500px; margin-bottom: 36px;
+  }
+
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 38px; }
+  .pill {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8); padding: 7px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+  }
+  .pill-icon { font-size: 13px; }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 5px; font-weight: 600; font-size: 14px; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; }
+  .btn-primary { background: var(--mid); color: var(--white); }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
+  .btn-ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.28); }
+  .btn-ghost:hover { border-color: var(--accent); background: rgba(59,130,246,0.1); }
+
+  /* ── FORM CARD ──────────────────────────────────── */
+  .form-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 36px 32px;
+    box-shadow:
+      0 40px 100px rgba(0,0,0,0.45),
+      0 0 0 1px rgba(255,255,255,0.08);
+    position: relative; z-index: 2;
+  }
+  .form-tag { font-size: 10px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 5px; }
+  .form-title { font-family: 'Barlow Condensed', sans-serif; font-size: 27px; font-weight: 800; color: var(--navy); text-transform: uppercase; margin-bottom: 3px; }
+  .form-sub { font-size: 13px; color: var(--steel); line-height: 1.5; margin-bottom: 22px; }
+
+  .fg { margin-bottom: 13px; }
+  .fg label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--steel); margin-bottom: 5px; }
+  .fg input, .fg select, .fg textarea {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--ice); border-radius: 6px;
+    font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--ink);
+    background: var(--fog); outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+  }
+  .fg input:focus, .fg select:focus, .fg textarea:focus {
+    border-color: var(--accent); background: var(--white);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+  }
+  .fg textarea { resize: vertical; min-height: 76px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .btn-submit {
+    width: 100%; background: var(--mid); color: var(--white);
+    padding: 14px; border-radius: 6px; border: none; cursor: pointer;
+    font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 6px;
+  }
+  .btn-submit:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .form-trust {
+    text-align: center; margin-top: 12px;
+    font-size: 11px; color: var(--silver);
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+  }
+
+  .form-success { display: none; text-align: center; padding: 20px 0; }
+  .form-success.show { display: block; }
+  .form-success .check { font-size: 52px; margin-bottom: 14px; }
+  .form-success h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 30px; font-weight: 800; text-transform: uppercase;
+    color: var(--green); margin-bottom: 10px;
+  }
+  .form-success p { font-size: 14px; color: var(--steel); line-height: 1.6; }
+
+  /* ── TRUST STRIP ────────────────────────────────── */
+  .trust-strip {
+    background: var(--navy);
+    padding: 18px 40px;
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+  }
+  .trust-item { display: flex; align-items: center; gap: 9px; color: var(--silver); font-size: 12.5px; font-weight: 500; }
+  .trust-item strong { color: var(--white); }
+
+  /* ── SECTIONS ───────────────────────────────────── */
+  .section { padding: 88px 40px; }
+  .section-inner { max-width: 1240px; margin: 0 auto; }
+  .sec-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .sec-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(38px, 5vw, 58px); font-weight: 900;
+    line-height: 0.95; text-transform: uppercase; color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .sec-sub { font-size: 16px; color: var(--steel); max-width: 560px; line-height: 1.75; margin-bottom: 56px; }
+
+  /* ── DIFFERENTIATORS ──────────────────────────── */
+  .diff-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .diff-card {
+    background: var(--fog); padding: 36px 28px;
+    position: relative; cursor: default;
+    transition: background 0.25s;
+  }
+  .diff-card:hover { background: var(--ice); }
+  .diff-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 56px; font-weight: 900; color: rgba(226,232,240,0.7);
+    line-height: 1; margin-bottom: 10px;
+  }
+  .diff-icon { font-size: 30px; display: block; margin-bottom: 12px; }
+  .diff-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 21px; font-weight: 800; text-transform: uppercase;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .diff-card p { font-size: 13px; color: var(--steel); line-height: 1.65; }
+  .diff-card .tag {
+    display: inline-block; margin-top: 12px;
+    background: rgba(37,99,235,0.1); color: var(--mid);
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px;
+  }
+
+  /* ── INVENTORY ──────────────────────────────────── */
+  .inv-section { background: var(--navy); }
+  .inv-section .sec-title { color: var(--white); }
+  .inv-section .sec-sub { color: var(--silver); }
+  .inv-section .sec-label { color: #60A5FA; }
+
+  .inv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .inv-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .inv-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+  .inv-img {
+    height: 185px; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #1A3A6B, #2563EB);
+  }
+  .inv-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .inv-card:hover .inv-img img { transform: scale(1.04); }
+
+  .inv-status {
+    position: absolute; top: 12px; left: 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 100px;
+  }
+  .status-available { background: var(--green); color: white; }
+  .status-pending   { background: var(--amber); color: white; }
+
+  .inv-price-badge {
+    position: absolute; bottom: 12px; right: 12px;
+    background: rgba(11,29,53,0.88); backdrop-filter: blur(6px);
+    color: white; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 800;
+    padding: 6px 12px; border-radius: 6px;
+  }
+
+  .inv-body { padding: 18px 20px 20px; }
+  .inv-make { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .inv-name { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+  .inv-specs { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 12px; }
+  .inv-spec { font-size: 12px; color: var(--silver); display: flex; align-items: center; gap: 5px; }
+  .inv-footer { display: flex; gap: 10px; }
+  .inv-btn {
+    flex: 1; background: var(--mid); color: white;
+    padding: 10px 14px; border-radius: 5px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    text-align: center; border: none; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .inv-btn:hover { background: var(--accent); }
+  .inv-btn.ghost { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); }
+  .inv-btn.ghost:hover { background: rgba(255,255,255,0.12); }
+
+  .inv-cta-block { text-align: center; margin-top: 44px; }
+  .inv-note { font-size: 13px; color: var(--silver); margin-bottom: 18px; }
+
+  /* ── WHY TRICARS ────────────────────────────────── */
+  .why-grid { display: grid; grid-template-columns: 1fr 480px; gap: 72px; align-items: start; }
+  .why-points { display: flex; flex-direction: column; gap: 22px; margin-top: 8px; }
+  .why-point { display: flex; gap: 16px; align-items: flex-start; }
+  .why-ico {
+    width: 46px; height: 46px; min-width: 46px;
+    background: rgba(37,99,235,0.09); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+    border: 1px solid rgba(37,99,235,0.15);
+  }
+  .why-point h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 19px; font-weight: 800; text-transform: uppercase;
+    color: var(--navy); margin-bottom: 4px;
+  }
+  .why-point p { font-size: 13.5px; color: var(--steel); line-height: 1.65; }
+
+  .why-side { display: flex; flex-direction: column; gap: 16px; }
+  .review-card {
+    background: var(--fog); border-radius: 10px; padding: 24px;
+    border-left: 3px solid var(--accent);
+  }
+  .stars { color: var(--amber); font-size: 14px; margin-bottom: 10px; letter-spacing: 2px; }
+  .review-card p { font-size: 14px; color: var(--ink); line-height: 1.65; font-style: italic; margin-bottom: 14px; }
+  .reviewer-name { font-weight: 700; font-size: 13px; color: var(--navy); }
+  .reviewer-loc { font-size: 12px; color: var(--steel); }
+
+  .credibility-box {
+    background: var(--navy); border-radius: 10px; padding: 28px 30px;
+    color: white;
+  }
+  .cred-row { display: flex; justify-content: space-between; gap: 16px; }
+  .cred-item { text-align: center; }
+  .cred-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 40px; font-weight: 900; color: var(--accent); line-height: 1;
+  }
+  .cred-label { font-size: 11px; color: var(--silver); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .cred-divider { width: 1px; background: rgba(255,255,255,0.1); }
+
+  .usaa-badge {
+    margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--silver);
+  }
+  .usaa-icon { font-size: 22px; }
+
+  /* ── LOCATION ───────────────────────────────────── */
+  .location-section { background: var(--fog); }
+  .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .loc-info { }
+  .loc-detail { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 22px; }
+  .loc-icon { font-size: 22px; margin-top: 2px; min-width: 24px; }
+  .loc-detail h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .loc-detail p, .loc-detail a { font-size: 14px; color: var(--steel); text-decoration: none; line-height: 1.6; }
+  .loc-detail a:hover { color: var(--mid); }
+
+  .hours-table { width: 100%; border-collapse: collapse; }
+  .hours-table td { padding: 7px 0; font-size: 13px; border-bottom: 1px solid var(--ice); }
+  .hours-table td:first-child { color: var(--navy); font-weight: 600; }
+  .hours-table td:last-child { color: var(--steel); text-align: right; }
+  .hours-table tr:last-child td { border-bottom: none; }
+  .hours-closed { color: var(--steel) !important; font-style: italic; }
+
+  .map-placeholder {
+    border-radius: 10px; overflow: hidden;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    height: 320px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: white; text-align: center; gap: 12px;
+    border: 1px solid var(--ice);
+  }
+  .map-placeholder .map-pin { font-size: 48px; }
+  .map-placeholder p { font-size: 14px; color: var(--silver); max-width: 200px; line-height: 1.5; }
+  .map-placeholder a {
+    background: var(--mid); color: white; text-decoration: none;
+    padding: 10px 22px; border-radius: 5px; font-size: 13px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .map-placeholder a:hover { background: var(--accent); }
+
+  /* ── FOOTER ─────────────────────────────────────── */
+  footer {
+    background: var(--ink); padding: 44px 40px 28px;
+  }
+  .footer-top {
+    max-width: 1240px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+    padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand { }
+  .footer-logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 28px; letter-spacing: 4px;
+    color: var(--white); text-transform: uppercase; margin-bottom: 10px;
+    display: block;
+  }
+  .footer-logo-text span { color: var(--accent); }
+  .footer-tagline { font-size: 13px; color: var(--steel); line-height: 1.6; margin-bottom: 16px; }
+  .footer-contact-line { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--silver); margin-bottom: 6px; }
+  .footer-contact-line a { color: var(--silver); text-decoration: none; }
+  .footer-contact-line a:hover { color: var(--accent); }
+
+  .footer-col h5 {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--silver); margin-bottom: 14px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-col ul a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--white); }
+
+  .footer-bottom {
+    max-width: 1240px; margin: 0 auto; padding-top: 20px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-legal { display: flex; gap: 20px; }
+  .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+  /* ── FADE-IN ────────────────────────────────────── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  .fu  { animation: fadeUp 0.7s ease both; }
+  .d1  { animation-delay: 0.05s; }
+  .d2  { animation-delay: 0.18s; }
+  .d3  { animation-delay: 0.30s; }
+  .d4  { animation-delay: 0.44s; }
+  .d5  { animation-delay: 0.56s; }
+
+  /* ── RESPONSIVE ─────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .hero-inner, .why-grid, .loc-grid { grid-template-columns: 1fr; }
+    .diff-grid { grid-template-columns: 1fr 1fr; }
+    .inv-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .why-grid { gap: 40px; }
+  }
+  @media (max-width: 720px) {
+    nav { padding: 0 20px; }
+    .topbar { display: none; }
+    .nav-links { display: none; }
+    .hero, .section { padding-left: 20px; padding-right: 20px; }
+    .trust-strip { gap: 20px; padding: 14px 20px; }
+    .diff-grid, .inv-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .cred-row { flex-direction: column; gap: 20px; }
+    .cred-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span>📍 18970 Bonanza Way, Gaithersburg, MD 20879</span>
+    <span class="topbar-sep">|</span>
+    <span>Mon–Fri: 9:30am–6:30pm &nbsp;·&nbsp; Sat: 10am–6pm &nbsp;·&nbsp; Sun: Closed</span>
+  </div>
+  <div class="topbar-right">
+    <a href="mailto:sales@tricars.com">sales@tricars.com</a>
+    <span class="topbar-sep">|</span>
+    <a href="tel:2404771650" class="topbar-phone">📞 (240) 477-1650</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">TRI<span>CARS</span></a>
+  <ul class="nav-links">
+    <li><a href="#inventory">Inventory</a></li>
+    <li><a href="#why">Why Tricars</a></li>
+    <li><a href="#location">Visit Us</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge fu d1">
+        <span class="hero-badge-dot"></span>
+        Gaithersburg, Maryland · Est. 20+ Years
+      </div>
+      <h1 class="fu d2">Quality Cars,<span class="cr">Zero Games.</span></h1>
+      <p class="hero-sub fu d3">
+        Tricars is Gaithersburg's trusted pre-owned dealership. No dealer fees, no pressure — 
+        just handpicked vehicles, full transparency, and a buying experience you'll actually enjoy.
+      </p>
+      <div class="hero-pills fu d4">
+        <span class="pill"><span class="pill-icon">✅</span> No Dealer Fees</span>
+        <span class="pill"><span class="pill-icon">🔄</span> 7-Day Money-Back</span>
+        <span class="pill"><span class="pill-icon">🛡️</span> 30-Day Warranty</span>
+        <span class="pill"><span class="pill-icon">🚚</span> Nationwide Delivery</span>
+      </div>
+      <div class="hero-actions fu d5">
+        <a href="#inventory" class="btn btn-primary">Browse Inventory →</a>
+        <a href="#contact" class="btn btn-ghost">Get a Free Quote</a>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-card fu d3" id="contact">
+      <div id="formWrap">
+        <div class="form-tag">Free — No Obligation</div>
+        <div class="form-title">Find Your Car</div>
+        <div class="form-sub">Tell us what you're looking for. Our team responds within 24 hours.</div>
+
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="fg">
+              <label>First Name</label>
+              <input type="text" placeholder="John" required />
+            </div>
+            <div class="fg">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="fg">
+            <label>Email Address</label>
+            <input type="email" placeholder="john@email.com" required />
+          </div>
+          <div class="fg">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(555) 000-0000" />
+          </div>
+          <div class="fg">
+            <label>Vehicle Type</label>
+            <select>
+              <option value="">What are you looking for?</option>
+              <option>Sedan / Car</option>
+              <option>SUV / Crossover</option>
+              <option>Truck / Van</option>
+              <option>Luxury Vehicle</option>
+              <option>Open to Suggestions</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Budget Range</label>
+            <select>
+              <option value="">Select a range...</option>
+              <option>Under $15,000</option>
+              <option>$15,000 – $25,000</option>
+              <option>$25,000 – $40,000</option>
+              <option>$40,000 – $60,000</option>
+              <option>$60,000+</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Anything specific? (optional)</label>
+            <textarea placeholder="Make, model, year, color preferences..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send My Request →</button>
+        </form>
+        <div class="form-trust">🔒 Your info is private. We never spam or sell your data.</div>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <div class="check">✅</div>
+        <h3>Request Sent!</h3>
+        <p>Our team at <strong>sales@tricars.com</strong> has your request and will be in touch within 24 hours.<br><br>You can also call us directly at <strong>(240) 477-1650</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">🏅 <strong>Licensed MD Dealer</strong></div>
+  <div class="trust-item">📋 <strong>Carfax</strong> on Every Vehicle</div>
+  <div class="trust-item">🔄 <strong>7-Day</strong> Money-Back Guarantee</div>
+  <div class="trust-item">🛡️ <strong>30-Day</strong> Bumper-to-Bumper Warranty</div>
+  <div class="trust-item">💲 <strong>Zero</strong> Dealer Fees</div>
+  <div class="trust-item">🚚 Nationwide Delivery Available</div>
+</div>
+
+<!-- WHY TRICARS / DIFFERENTIATORS -->
+<section class="section" id="why">
+  <div class="section-inner">
+    <div class="why-grid">
+      <div>
+        <div class="sec-label">Why Tricars</div>
+        <h2 class="sec-title">Car Buying<br>Done Differently</h2>
+        <p class="sec-sub">We've been changing the car-buying experience in Maryland for over 20 years. Here's what makes us different from every other dealership.</p>
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-ico">💲</div>
+            <div>
+              <h4>Absolutely No Dealer Fees</h4>
+              <p>The price you see is the price you pay. No documentation fees, no prep fees, no surprises at signing. Ever.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-ico">🔄</div>
+            <div>
+              <h4>7-Day Money-Back Guarantee</h4>
+              <p>Don't love it? Bring it back within 7 days for a full refund. We stand behind every vehicle we sell — no questions asked.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-ico">🛡️</div>
+            <div>
+              <h4>30-Day Bumper-to-Bumper Warranty</h4>
+              <p>Every vehicle comes with 30 days of coverage so you drive away with confidence, not anxiety.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-ico">📋</div>
+            <div>
+              <h4>Full Carfax on Every Car</h4>
+              <p>We disclose everything — even minor imperfections most dealers would hide. You deserve the full picture before you decide.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-ico">🚚</div>
+            <div>
+              <h4>We Handle the DMV for You</h4>
+              <p>Hate the DMV? So does everyone. We handle your registration and mail the plates directly to you — wherever you are in the US.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-side">
+        <!-- Real reviews from Cars.com / Yelp -->
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p>"This was the absolute best experience I ever had buying a car! Both AJ and Arash were exceptional throughout the process and even after the sale. I would highly recommend Tricars to anyone."</p>
+          <div class="reviewer-name">Monroe P.W.</div>
+          <div class="reviewer-loc">Gaithersburg, MD · via Cars.com</div>
+        </div>
+
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p>"They even registered the vehicle for me in Virginia and mailed the plates to me. That's pretty awesome. The vehicle was exactly as described and the price was excellent."</p>
+          <div class="reviewer-name">USAA Car Buying Customer</div>
+          <div class="reviewer-loc">Virginia · via Cars.com</div>
+        </div>
+
+        <div class="credibility-box">
+          <div class="cred-row">
+            <div class="cred-item">
+              <div class="cred-num">20+</div>
+              <div class="cred-label">Years in Business</div>
+            </div>
+            <div class="cred-divider"></div>
+            <div class="cred-item">
+              <div class="cred-num">★5.0</div>
+              <div class="cred-label">Avg. Rating</div>
+            </div>
+            <div class="cred-divider"></div>
+            <div class="cred-item">
+              <div class="cred-num">$0</div>
+              <div class="cred-label">Dealer Fees</div>
+            </div>
+          </div>
+          <div class="usaa-badge">
+            <span class="usaa-icon">🏦</span>
+            <span>Authorized <strong style="color:white">USAA Car Buying Service</strong> partner dealership</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVENTORY -->
+<section class="section inv-section" id="inventory">
+  <div class="section-inner">
+    <div class="sec-label">Current Stock</div>
+    <h2 class="sec-title" style="color:white;">Featured Vehicles</h2>
+    <p class="sec-sub">A sample of our handpicked inventory. All vehicles come with Carfax, our 7-day guarantee, and zero dealer fees. Updated regularly.</p>
+
+    <div class="inv-grid">
+      <div class="inv-card">
+        <div class="inv-img">
+          <img src="https://images.unsplash.com/photo-1617814076668-9af3e8a7d5a6?w=700&q=75" alt="Audi Q5" loading="lazy" />
+          <span class="inv-status status-available">Available</span>
+          <div class="inv-price-badge">$34,900</div>
+        </div>
+        <div class="inv-body">
+          <div class="inv-make">Audi</div>
+          <div class="inv-name">Q5 Premium Plus</div>
+          <div class="inv-specs">
+            <span class="inv-spec">📅 2021</span>
+            <span class="inv-spec">🛣 28,400 mi</span>
+            <span class="inv-spec">⛽ AWD</span>
+            <span class="inv-spec">📋 Clean Carfax</span>
+          </div>
+          <div class="inv-footer">
+            <button class="inv-btn" onclick="scrollToForm()">Get Quote</button>
+            <button class="inv-btn ghost" onclick="scrollToForm()">More Info</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inv-card">
+        <div class="inv-img">
+          <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=75" alt="BMW 5 Series" loading="lazy" />
+          <span class="inv-status status-available">Available</span>
+          <div class="inv-price-badge">$41,500</div>
+        </div>
+        <div class="inv-body">
+          <div class="inv-make">BMW</div>
+          <div class="inv-name">5 Series 540i xDrive</div>
+          <div class="inv-specs">
+            <span class="inv-spec">📅 2021</span>
+            <span class="inv-spec">🛣 22,800 mi</span>
+            <span class="inv-spec">⛽ AWD</span>
+            <span class="inv-spec">📋 Clean Carfax</span>
+          </div>
+          <div class="inv-footer">
+            <button class="inv-btn" onclick="scrollToForm()">Get Quote</button>
+            <button class="inv-btn ghost" onclick="scrollToForm()">More Info</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inv-card">
+        <div class="inv-img">
+          <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=700&q=75" alt="Mercedes GLE" loading="lazy" />
+          <span class="inv-status status-pending">Pending Sale</span>
+          <div class="inv-price-badge">$56,200</div>
+        </div>
+        <div class="inv-body">
+          <div class="inv-make">Mercedes-Benz</div>
+          <div class="inv-name">GLE 450 4MATIC</div>
+          <div class="inv-specs">
+            <span class="inv-spec">📅 2022</span>
+            <span class="inv-spec">🛣 19,100 mi</span>
+            <span class="inv-spec">⛽ AWD</span>
+            <span class="inv-spec">📋 Clean Carfax</span>
+          </div>
+          <div class="inv-footer">
+            <button class="inv-btn" onclick="scrollToForm()">Get Quote</button>
+            <button class="inv-btn ghost" onclick="scrollToForm()">More Info</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-cta-block">
+      <p class="inv-note">These are sample listings. Contact us for our full live inventory.</p>
+      <button class="btn btn-primary" onclick="scrollToForm()" style="font-size:15px;padding:16px 32px;">
+        Request Full Inventory List →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="sec-label">Simple Process</div>
+    <h2 class="sec-title">How It Works</h2>
+    <p class="sec-sub">We cut out the dealership theatre. Here's exactly what happens when you reach out to Tricars.</p>
+
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-num">01</div>
+        <span class="diff-icon">📋</span>
+        <h3>Submit a Request</h3>
+        <p>Fill in the form with what you're looking for — make, model, budget. No obligation, no pressure.</p>
+        <span class="tag">Takes 2 minutes</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">02</div>
+        <span class="diff-icon">📞</span>
+        <h3>We Reach Out</h3>
+        <p>Our team reviews your request and contacts you within 24 hours with matching vehicles from our inventory.</p>
+        <span class="tag">Within 24 hours</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">03</div>
+        <span class="diff-icon">🔍</span>
+        <h3>Review the Details</h3>
+        <p>We share photos, full Carfax reports, and pricing. You can visit us in Gaithersburg or we arrange delivery to you.</p>
+        <span class="tag">Full transparency</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-num">04</div>
+        <span class="diff-icon">🤝</span>
+        <h3>Drive Away Happy</h3>
+        <p>We handle the DMV paperwork and registration. Your plates come to your door. No dealer fees, no surprises.</p>
+        <span class="tag">We handle everything</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION & HOURS -->
+<section class="section location-section" id="location">
+  <div class="section-inner">
+    <div class="sec-label">Find Us</div>
+    <h2 class="sec-title">Visit Our Showroom</h2>
+    <p class="sec-sub">Come see our inventory in person in Gaithersburg, Maryland — or let us bring the car to you.</p>
+
+    <div class="loc-grid">
+      <div class="loc-info">
+        <div class="loc-detail">
+          <div class="loc-icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>18970 Bonanza Way<br>Gaithersburg, MD 20879</p>
+          </div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <a href="tel:2404771650">(240) 477-1650</a>
+          </div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <a href="mailto:sales@tricars.com">sales@tricars.com</a>
+          </div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-icon">🕐</div>
+          <div>
+            <h4>Business Hours</h4>
+            <table class="hours-table">
+              <tr><td>Monday – Friday</td><td>9:30 AM – 6:30 PM</td></tr>
+              <tr><td>Saturday</td><td>10:00 AM – 6:00 PM</td></tr>
+              <tr><td>Sunday</td><td class="hours-closed">Closed</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="map-placeholder">
+          <div class="map-pin">📍</div>
+          <strong style="color:white;font-family:'Barlow Condensed',sans-serif;font-size:20px;text-transform:uppercase;letter-spacing:2px;">Gaithersburg, MD</strong>
+          <p>18970 Bonanza Way<br>Gaithersburg, MD 20879</p>
+          <a href="https://maps.google.com/?q=18970+Bonanza+Way+Gaithersburg+MD+20879" target="_blank">Open in Google Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="footer-logo-text">TRI<span>CARS</span></span>
+      <p class="footer-tagline">Changing the car-buying experience — one happy customer at a time. Based in Gaithersburg, MD for over 20 years.</p>
+      <div class="footer-contact-line">📍 <a href="https://maps.google.com/?q=18970+Bonanza+Way+Gaithersburg+MD+20879" target="_blank">18970 Bonanza Way, Gaithersburg, MD 20879</a></div>
+      <div class="footer-contact-line">📞 <a href="tel:2404771650">(240) 477-1650</a></div>
+      <div class="footer-contact-line">✉️ <a href="mailto:sales@tricars.com">sales@tricars.com</a></div>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#inventory">Browse Inventory</a></li>
+        <li><a href="#why">Why Tricars</a></li>
+        <li><a href="#location">Visit the Showroom</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Our Promise</h5>
+      <ul>
+        <li><a href="#why">No Dealer Fees</a></li>
+        <li><a href="#why">7-Day Money-Back</a></li>
+        <li><a href="#why">30-Day Warranty</a></li>
+        <li><a href="#why">Carfax on Every Car</a></li>
+        <li><a href="#why">Nationwide Delivery</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Tricars, Inc. · Gaithersburg, MD · All rights reserved.</div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function scrollToForm() {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // Production: posts to Tally → emails sales@tricars.com + logs to database
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
